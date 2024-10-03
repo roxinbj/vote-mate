@@ -1,0 +1,262 @@
+[
+	{
+		"question": "We should address unemployment in Namibia by...",
+		"options": [
+			{
+				"answer": "Building one factory in each constituency to provide jobs.",
+				"parties": ["PDM", "NEFF"]
+			},
+			{
+				"answer": "Supporting SMEs with better access to capital and reducing taxes.",
+				"parties": ["IPC", "RP", "APP"]
+			},
+			{
+				"answer": "Investing in key sectors like agriculture, manufacturing, and infrastructure.",
+				"parties": ["SWAPO", "CoD", "SWANU"]
+			},
+			{
+				"answer": "Implementing large-scale public works projects and redistributing wealth.",
+				"parties": ["APP", "NDP"]
+			},
+			{
+				"answer": "Letting the private sector lead job creation with minimal government interference.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Economic Development & Jobs"
+	},
+	{
+		"question": "We should address the housing crisis by...",
+		"options": [
+			{
+				"answer": "Offering free plots of land to low-income individuals.",
+				"parties": ["PDM", "NEFF"]
+			},
+			{
+				"answer": "Investing in affordable housing projects and upgrading informal settlements.",
+				"parties": ["SWAPO", "RP", "APP"]
+			},
+			{
+				"answer": "Fostering public-private partnerships for urban development.",
+				"parties": ["IPC"]
+			},
+			{
+				"answer": "Creating sustainable housing with state support.",
+				"parties": ["NDP", "CoD", "SWANU"]
+			},
+			{
+				"answer": "Letting the private market drive housing solutions.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Housing"
+	},
+	{
+		"question": "To improve healthcare in Namibia, we should...",
+		"options": [
+			{
+				"answer": "Implement universal healthcare coverage (UHC).",
+				"parties": ["PDM", "NEFF", "NDP"]
+			},
+			{
+				"answer": "Expand healthcare infrastructure, especially in rural areas.",
+				"parties": ["SWAPO", "IPC", "RP"]
+			},
+			{
+				"answer": "Provide free healthcare for all citizens, focusing on marginalized communities.",
+				"parties": ["APP", "SWANU"]
+			},
+			{
+				"answer": "Increase public-private partnerships to improve healthcare.",
+				"parties": ["RP"]
+			},
+			{
+				"answer": "Maintain the current healthcare system but improve access and efficiency.",
+				"parties": ["CoD"]
+			}
+		],
+		"issue": "Healthcare"
+	},
+	{
+		"question": "To manage natural resources in Namibia, we should...",
+		"options": [
+			{
+				"answer": "Ensure 50% of all resources undergo local value addition before export.",
+				"parties": ["PDM", "IPC"]
+			},
+			{
+				"answer": "Nationalize key resources such as mines and land.",
+				"parties": ["NEFF", "SWANU", "NDP"]
+			},
+			{
+				"answer": "Create public-private partnerships to sustainably manage resources.",
+				"parties": ["SWAPO", "RP"]
+			},
+			{
+				"answer": "Redistribute resources to benefit disadvantaged communities.",
+				"parties": ["APP", "NDP"]
+			},
+			{
+				"answer": "Leave natural resource management to the private sector.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Natural Resources"
+	},
+	{
+		"question": "To reduce corruption in Namibia, we should...",
+		"options": [
+			{
+				"answer": "Reform the Anti-Corruption Commission to be fully independent.",
+				"parties": ["IPC", "PDM", "NDP"]
+			},
+			{
+				"answer": "Establish specialized anti-corruption courts and introduce stricter laws.",
+				"parties": ["PDM", "SWAPO"]
+			},
+			{
+				"answer": "Empower whistleblowers and ensure transparent governance.",
+				"parties": ["NEFF", "APP"]
+			},
+			{
+				"answer": "Reform public institutions and decentralize power.",
+				"parties": ["SWANU", "CoD"]
+			},
+			{
+				"answer": "Strengthen existing anti-corruption bodies with proper oversight.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Corruption"
+	},
+	{
+		"question": "We should fight poverty by...",
+		"options": [
+			{
+				"answer": "Implementing social welfare programs and food aid.",
+				"parties": ["SWAPO", "IPC"]
+			},
+			{
+				"answer": "Redistributing wealth and land to ensure economic justice.",
+				"parties": ["NEFF", "SWANU", "NDP"]
+			},
+			{
+				"answer": "Supporting SMEs and informal traders to create wealth at the grassroots.",
+				"parties": ["APP", "RP"]
+			},
+			{
+				"answer": "Creating state-run programs focused on job creation and social support.",
+				"parties": ["PDM", "CoD"]
+			},
+			{
+				"answer": "Letting the private sector and NGOs address poverty without government interference.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Poverty"
+	},
+	{
+		"question": "To ensure food security, we should...",
+		"options": [
+			{
+				"answer": "Modernize agriculture and increase mechanization in rural areas.",
+				"parties": ["PDM", "IPC"]
+			},
+			{
+				"answer": "Invest in small-scale farmers and agricultural cooperatives.",
+				"parties": ["SWAPO", "APP", "NDP"]
+			},
+			{
+				"answer": "Nationalize large farms to ensure equal access to resources.",
+				"parties": ["NEFF", "SWANU"]
+			},
+			{
+				"answer": "Promote sustainable farming practices and organic farming.",
+				"parties": ["RP", "CoD"]
+			},
+			{
+				"answer": "Encourage private agricultural investment and trade.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Food Security"
+	},
+	{
+		"question": "To reform education, we should...",
+		"options": [
+			{
+				"answer": "Offer free primary and secondary education, and vocational training.",
+				"parties": ["SWAPO", "PDM", "NDP"]
+			},
+			{
+				"answer": "Modernize education with digital tools and focus on STEM subjects.",
+				"parties": ["IPC", "NEFF"]
+			},
+			{
+				"answer": "Create a stronger link between education and the job market.",
+				"parties": ["APP", "RP"]
+			},
+			{
+				"answer": "Make higher education free and support technical training in all regions.",
+				"parties": ["SWANU", "NDP"]
+			},
+			{
+				"answer": "Leave education reform to private institutions.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Education"
+	},
+	{
+		"question": "To improve policing and justice, we should...",
+		"options": [
+			{
+				"answer": "Decentralize police powers for better accountability.",
+				"parties": ["PDM", "CoD"]
+			},
+			{
+				"answer": "Reform the judiciary and increase police training.",
+				"parties": ["SWAPO", "IPC", "RP"]
+			},
+			{
+				"answer": "Establish community policing and involve citizens in law enforcement.",
+				"parties": ["APP", "NEFF", "SWANU"]
+			},
+			{
+				"answer": "Increase transparency in the judiciary and ensure fair trials.",
+				"parties": ["NDP"]
+			},
+			{
+				"answer": "Strengthen current policing systems but improve oversight.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Policing & Justice"
+	},
+	{
+		"question": "To manage land reform, we should...",
+		"options": [
+			{
+				"answer": "Redistribute land fairly and equitably to historically disadvantaged communities.",
+				"parties": ["NEFF", "SWANU", "NDP"]
+			},
+			{
+				"answer": "Implement policies to support land ownership by small-scale farmers.",
+				"parties": ["PDM", "SWAPO"]
+			},
+			{
+				"answer": "Create sustainable housing projects and develop rural areas.",
+				"parties": ["APP", "CoD"]
+			},
+			{
+				"answer": "Encourage foreign investment in agriculture and land development.",
+				"parties": ["IPC", "RP"]
+			},
+			{
+				"answer": "Maintain the current land distribution policies with minor reforms.",
+				"parties": ["RP"]
+			}
+		],
+		"issue": "Land Reform"
+	}
+]
