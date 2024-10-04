@@ -1,27 +1,38 @@
 <script>
-	import { userAnswers, questions, issueRankings } from '../../store.js';
+	import { issueRankings, userAnswers } from '../../store'; // Import the rankings and answers stores
+	import { onMount } from 'svelte';
 
-	let partyScores = {};
+	let rankings = [];
+	let answers = [];
 
-	$: {
-		questions.forEach((q, index) => {
-			const selectedOptionIndex = $userAnswers[index];
-			const selectedOption = q.options[selectedOptionIndex];
-			const weight = $issueRankings[q.issue];
-
-			selectedOption.parties.forEach((party) => {
-				if (!partyScores[party]) partyScores[party] = 0;
-				partyScores[party] += weight;
-			});
+	// On mount, load the user's rankings and answers
+	onMount(() => {
+		$issueRankings.subscribe((value) => {
+			rankings = value;
 		});
-	}
 
-	let sortedScores = Object.entries(partyScores).sort((a, b) => b[1] - a[1]);
+		$userAnswers.subscribe((value) => {
+			answers = value;
+		});
+	});
 </script>
 
-<h1>Your Results</h1>
-<ul>
-	{#each sortedScores as [party, score]}
-		<li>{party}: {score} points</li>
-	{/each}
-</ul>
+<main>
+	<h1>Your Results</h1>
+
+	<h2>Your Ranked Issues:</h2>
+	<ul>
+		{#each rankings as issue}
+			<li>{issue}</li>
+		{/each}
+	</ul>
+
+	<h2>Your Selected Answers:</h2>
+	<ul>
+		{#each answers as answer, index}
+			<li>Question {index + 1}: {answer != null ? `Option ${answer + 1}` : 'Skipped'}</li>
+		{/each}
+	</ul>
+
+	<p>Thank you for completing the questionnaire!</p>
+</main>
