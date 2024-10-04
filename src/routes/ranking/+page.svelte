@@ -33,8 +33,8 @@
 
 	// Handle when an item is dropped
 	function handleDrop(event, index) {
-		console.log('Item at ', draggedIndex);
-		console.log('Dropped at ', index);
+		//console.log('Item at ', draggedIndex);
+		//console.log('Dropped at ', index);
 		event.preventDefault();
 
 		// Reorder the rankedIssues array

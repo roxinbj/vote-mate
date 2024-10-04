@@ -31,6 +31,9 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"chart.js": "^4.4.4"
+		"chart.js": "^4.4.4",
+		"cookie": "^0.7.1",
+		"devalue": "^5.1.1",
+		"set-cookie-parser": "^2.7.0"
 	}
 }

@@ -16,6 +16,10 @@
 		issueRankings.set([]); // Clear issue rankings
 		goto('/'); // Navigate back to the landing page (adjust if needed)
 	}
+
+	function backToResults() {
+		goto('/results'); // Navigate back to the landing page (adjust if needed)
+	}
 </script>
 
 <main>
@@ -54,6 +58,7 @@
 		{/each}
 	</ul>
 	<div style="margin-top: 20px;">
-		<button on:click={startAgain}>Home</button>
+		<button on:click={backToResults}>Back</button>
+		<button on:click={startAgain}>Start Again</button>
 	</div>
 </main>
