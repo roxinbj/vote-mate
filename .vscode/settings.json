@@ -1,0 +1,7 @@
+{
+	"svelte.plugin.typescript.codeActions.enable": false,
+	"svelte.plugin.typescript.completions.enable": false,
+	"svelte.plugin.typescript.diagnostics.enable": false,
+	"svelte.plugin.typescript.enable": false,
+	"svelte.plugin.typescript.documentSymbols.enable": false
+}

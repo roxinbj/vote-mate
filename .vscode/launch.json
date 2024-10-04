@@ -1,0 +1,25 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "pwa-node",
+			"request": "launch",
+			"name": "Launch SvelteKit",
+			"program": "${workspaceFolder}/node_modules/.bin/svelte-kit",
+			"args": ["dev"],
+			"runtimeArgs": ["run"],
+			"cwd": "${workspaceFolder}",
+			"sourceMaps": true,
+			"console": "integratedTerminal",
+			"internalConsoleOptions": "openOnSessionStart",
+			"skipFiles": ["<node_internals>/**"]
+		},
+		{
+			"type": "pwa-node",
+			"request": "attach",
+			"name": "Attach to Process",
+			"processId": "${command:PickProcess}",
+			"skipFiles": ["<node_internals>/**"]
+		}
+	]
+}
