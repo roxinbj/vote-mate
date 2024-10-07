@@ -22,17 +22,14 @@ FROM node:18-slim
 # Set the working directory
 WORKDIR /app
 
-# Copy only necessary files from the build stage
-COPY --from=build /app/package*.json ./
-COPY --from=build /app/.svelte-kit /app/.svelte-kit
-COPY --from=build /app/static /app/static
-COPY --from=build /app/src /app/src
-
+COPY package*.json ./
 # Install production dependencies only
 RUN npm install --production
 
+# Copy only necessary files from the build stage
+COPY --from=build /app/build ./build
 # Expose the port for Cloud Run (or local testing)
 EXPOSE 3000
 
 # Start the app
-CMD ["node", ".svelte-kit/output/server/index.js"]
+CMD ["npm", "start"]
