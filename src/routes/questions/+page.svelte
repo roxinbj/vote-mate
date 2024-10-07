@@ -9,72 +9,185 @@
 
 	// On mount, set the current question and load the previously selected option if available
 	onMount(() => {
-		currentQuestion = questions[$currentQuestionIndex];
-		selectedOption = $userAnswers[currentQuestionIndex] ?? null; // Load previous answer if available
+		loadQuestion();
 	});
+
+	function loadQuestion() {
+		currentQuestion = questions[$currentQuestionIndex];
+		selectedOption = $userAnswers[$currentQuestionIndex] ?? null; // Load previously saved answer if available
+	}
 
 	// Function to handle option selection
 	function selectOption(index) {
 		selectedOption = index; // Set the selected option
+		$userAnswers[$currentQuestionIndex] = selectedOption;
+
+		// Automatically go to the next question after selecting an option
+		nextQuestion();
 	}
 
 	// Move to the next question
 	function nextQuestion() {
-		// Save selected option, or `null` if no option was selected (i.e., treat as skipped)
-		$userAnswers[$currentQuestionIndex] = selectedOption;
+		// If no option is selected, save as null (skipped)
+		if (selectedOption === null) {
+			$userAnswers[$currentQuestionIndex] = null;
+		}
 
 		if ($currentQuestionIndex < questions.length - 1) {
 			currentQuestionIndex.update((n) => n + 1); // Move to the next question
-			currentQuestion = questions[$currentQuestionIndex];
-			selectedOption = $userAnswers[$currentQuestionIndex] ?? null; // Load previously saved answer or null
+			loadQuestion(); // Reload the question and options
 		} else {
-			console.log('Navigate now to ranking');
-			goto('/ranking');
-			//alert('You have completed the questionnaire!');
-			// You can add code here to navigate to the results or ranking page
+			goto('/ranking'); // Navigate to the ranking page once all questions are answered
 		}
 	}
 
 	// Move to the previous question
 	function previousQuestion() {
 		// Prevent moving back if we're on the first question
-		if ($currentQuestionIndex === 0) return;
-
-		currentQuestionIndex.update((n) => n - 1); // Move to the previous question
-		currentQuestion = questions[$currentQuestionIndex];
-		selectedOption = $userAnswers[$currentQuestionIndex] ?? null; // Load previously saved answer or null
+		if ($currentQuestionIndex === 0) {
+			goto('/');
+		} else {
+			currentQuestionIndex.update((n) => n - 1); // Move to the previous question
+			loadQuestion(); // Reload the question and options
+		}
 	}
 </script>
 
 <main>
-	<h1>Questionnaire</h1>
+	<h1>Vote-Mate</h1>
 
 	{#if currentQuestion}
-		<h2>{currentQuestion.question}</h2>
-		<ul>
-			{#each currentQuestion.options as option, index}
-				<li>
-					<input
-						type="radio"
-						id="option-{index}"
-						name="question"
-						value={index}
-						on:click={() => selectOption(index)}
-						checked={selectedOption === index}
-					/>
-					<label for="option-{index}">{option.answer}</label>
-				</li>
-			{/each}
-		</ul>
+		<div class="question-container">
+			<h2>{currentQuestion.question}</h2>
 
-		<p>Question {$currentQuestionIndex + 1} of {questions.length}</p>
+			<div class="options">
+				{#each currentQuestion.options as option, index}
+					<button on:click={() => selectOption(index)} class:selected={selectedOption === index}>
+						{option.answer}
+					</button>
+				{/each}
+			</div>
 
-		<!-- Previous Button: Always visible but does nothing if on the first question -->
-		<button on:click={previousQuestion}>Previous Question</button>
+			<p>Question {$currentQuestionIndex + 1} of {questions.length}</p>
 
-		<!-- Next Button: Proceeds to the next question -->
-		<button on:click={nextQuestion}>Next Question</button>
+			<!-- Skip Button (Right corner) -->
+			<!--<div class="skip" on:click={nextQuestion}>Skip question →</div> -->
+
+			<!-- Navigation Buttons -->
+			<div class="navigation">
+				<button on:click={previousQuestion}>Previous</button>
+				<button on:click={nextQuestion}>Next</button>
+			</div>
+
+			<!-- Progress Indicator -->
+			<div class="progress">
+				{#each Array(questions.length) as _, i}
+					<div class="progress-dot {i === $currentQuestionIndex ? 'active' : ''}"></div>
+				{/each}
+			</div>
+		</div>
 	{:else}
 		<p>No questions available.</p>
 	{/if}
 </main>
+
+<style>
+	main {
+		padding: 20px;
+		background: linear-gradient(135deg, #ffcc33, #ff9933);
+		text-align: center;
+		font-family: Arial, sans-serif;
+	}
+
+	.question-container {
+		background-color: white;
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+		max-width: 600px;
+		margin: 20px auto;
+		position: relative;
+	}
+
+	h1 {
+		color: white;
+		font-size: 2.5rem;
+		margin-bottom: 10px;
+	}
+
+	h2 {
+		font-size: 1.5rem;
+		margin-bottom: 20px;
+		color: #333;
+	}
+
+	.options {
+		display: flex;
+		flex-direction: column; /* Align options vertically */
+		gap: 10px;
+		margin-bottom: 20px;
+	}
+
+	.options button {
+		background-color: #ff9933;
+		border: none;
+		padding: 15px;
+		font-size: 1.1rem;
+		font-weight: bold;
+		color: #fff;
+		cursor: pointer;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+	}
+
+	.options button:hover {
+		background-color: #ffcc33;
+	}
+
+	.options button.selected {
+		background-color: #ffcc33; /* Highlight selected option */
+	}
+
+	.skip {
+		position: absolute;
+		bottom: 20px;
+		right: 20px;
+		color: #333;
+		font-size: 0.9rem;
+		cursor: pointer;
+	}
+
+	.navigation {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 20px;
+	}
+
+	.navigation button {
+		background-color: #ffcc33;
+		border: none;
+		padding: 10px 20px;
+		font-size: 1rem;
+		color: #fff;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+
+	.progress {
+		margin-top: 20px;
+		display: flex;
+		justify-content: center;
+	}
+
+	.progress-dot {
+		width: 12px;
+		height: 12px;
+		background-color: #ccc;
+		border-radius: 50%;
+		margin: 0 5px;
+	}
+
+	.progress-dot.active {
+		background-color: #ffcc33;
+	}
+</style>
