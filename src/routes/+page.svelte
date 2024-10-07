@@ -31,8 +31,8 @@
 		<h3>This project was proudly sponsored by:</h3>
 		<div class="logo-grid">
 			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
-			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
-			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
+			<img src="/logos/EtoshaApp.png" alt="Etosha App 1" />
+			<img src="/logos/HitradioNamibia.jpg" alt="HitradioNamibia 1" />
 			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
 			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
 
@@ -60,6 +60,12 @@
 		font-family: Arial, sans-serif;
 		line-height: 1.6;
 		color: #333;
+	}
+	h2 {
+		color: #333;
+
+		font-size: 2.5rem;
+		margin-bottom: 10px;
 	}
 
 	/* Top Hero Section */

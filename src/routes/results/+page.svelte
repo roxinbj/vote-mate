@@ -8,15 +8,12 @@
 	let correlationResults = [];
 	let sortedParties = [];
 
-	// Each party and their promises for correlation calculation
 	const parties = ['PDM', 'NEFF', 'IPC', 'RP', 'APP', 'SWAPO', 'CoD', 'SWANU', 'NDP'];
 
-	// Function to navigate to the "reveal questions" page
 	function revealQuestions() {
 		goto('/questions-revealed'); // Replace with the correct path to the page where the questions are revealed
 	}
 
-	// Function to reset the data and go back to the landing page
 	function startAgain() {
 		currentQuestionIndex.set(0);
 		userAnswers.set([]); // Clear user answers
@@ -24,60 +21,51 @@
 		goto('/'); // Navigate back to the landing page (adjust if needed)
 	}
 
-	// Calculate the weight for each issue based on user rankings
 	function calculateWeights() {
 		const rankings = $issueRankings;
 
-		// If no rankings are available, default to equal weights
 		if (!rankings || rankings.length === 0) {
 			return Array(questions.length).fill(1);
 		}
 
-		// Normalize the rankings so that the most important issue has the highest weight
-		const maxWeight = 10; // Arbitrary max weight
+		const maxWeight = 10;
 		const weights = [];
 		const totalIssues = rankings.length;
 
 		rankings.forEach((issue, index) => {
 			const questionIndex = questions.findIndex((q) => q.issue === issue);
-			const weight = maxWeight - index * (maxWeight / totalIssues); // Higher-ranked issues get higher weights
+			const weight = maxWeight - index * (maxWeight / totalIssues);
 			weights[questionIndex] = weight;
 		});
 		return weights;
 	}
 
-	// Correlate user's answers with each party's promises
 	function calculateCorrelation() {
 		const partyScores = {};
 
-		// Initialize scores for each party
 		parties.forEach((party) => {
 			partyScores[party] = 0;
 		});
 
-		// Calculate the issue weights based on user rankings
 		const weights = calculateWeights();
 		console.log('weights: ', weights);
 
-		// Calculate correlation by comparing user's answers with the party promises in each question
 		questions.forEach((question, questionIndex) => {
-			const userAnswer = $userAnswers[questionIndex]; // User's answer for the question
-			const weight = weights[questionIndex] || 1; // Use the calculated weight for this question or 1 if no weight is set
+			const userAnswer = $userAnswers[questionIndex];
+			const weight = weights[questionIndex] || 1;
 
 			if (userAnswer !== null) {
-				// Skip if the user skipped the question
 				question.options.forEach((option) => {
 					if (option.parties.includes(parties[userAnswer])) {
 						option.parties.forEach((party) => {
-							partyScores[party] += weight; // Multiply the score by the weight of the issue
+							partyScores[party] += weight;
 						});
 					}
 				});
 			}
 		});
 
-		// Convert scores to percentage and store them
-		const maxScore = weights.reduce((sum, w) => sum + w, 0); // The maximum possible weighted score
+		const maxScore = weights.reduce((sum, w) => sum + w, 0);
 		console.log('Max Score:', maxScore);
 		correlationResults = parties.map((party) => ({
 			party,
@@ -85,11 +73,9 @@
 		}));
 		console.log('Score: ', partyScores);
 
-		// Sort the parties by percentage from highest to lowest
 		sortedParties = [...correlationResults].sort((a, b) => b.percentage - a.percentage);
 	}
 
-	// Create the chart after the correlation is calculated
 	let chart;
 	onMount(() => {
 		calculateCorrelation();
@@ -99,32 +85,30 @@
 		chart = new Chart(ctx, {
 			type: 'bar',
 			data: {
-				labels: sortedParties.map((p) => p.party), // Party names
+				labels: sortedParties.map((p) => p.party),
 				datasets: [
 					{
 						label: 'Correlation (%)',
-						data: sortedParties.map((p) => p.percentage), // Correlation percentage
-						backgroundColor: 'rgba(54, 162, 235, 0.5)', // Light blue bars
-						borderColor: 'rgba(54, 162, 235, 1)', // Border color for the bars
+						data: sortedParties.map((p) => p.percentage),
+						backgroundColor: 'rgba(54, 162, 235, 0.5)',
+						borderColor: 'rgba(54, 162, 235, 1)',
 						borderWidth: 1
 					}
 				]
 			},
 			options: {
-				indexAxis: 'y', // Horizontal bars by switching the axis
+				indexAxis: 'y',
 				responsive: true,
 				scales: {
 					x: {
-						// This is now the value axis
 						beginAtZero: true,
-						max: 100, // Maximum 100% correlation
+						max: 100,
 						title: {
 							display: true,
 							text: 'Correlation (%)'
 						}
 					},
 					y: {
-						// This is now the category axis
 						title: {
 							display: true,
 							text: 'Parties'
@@ -133,7 +117,7 @@
 				},
 				plugins: {
 					legend: {
-						display: false // Hide the legend since it's a single dataset
+						display: false
 					}
 				}
 			}
@@ -143,9 +127,62 @@
 
 <main>
 	<h1>Your Results</h1>
-	<canvas id="resultsChart" width="400" height="400"></canvas>
-	<div style="margin-top: 20px;">
-		<button on:click={revealQuestions} style="margin-right: 10px;">Reveal Questions</button>
+
+	<div class="chart-container">
+		<canvas id="resultsChart" width="400" height="400"></canvas>
+	</div>
+
+	<div class="button-container">
+		<button on:click={revealQuestions}>Reveal Questions</button>
 		<button on:click={startAgain}>Start Again</button>
 	</div>
 </main>
+
+<style>
+	main {
+		padding: 20px;
+		text-align: center;
+		font-family: Arial, sans-serif;
+	}
+
+	h1 {
+		color: #ff9933;
+		font-size: 2.5rem;
+		margin-bottom: 20px;
+	}
+
+	.chart-container {
+		max-width: 600px;
+		margin: 0 auto;
+		padding: 20px;
+		background-color: white;
+		border-radius: 10px;
+		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	canvas {
+		max-width: 100%;
+		margin: 20px auto;
+	}
+
+	.button-container {
+		margin-top: 20px;
+	}
+
+	button {
+		background-color: #ffcc33;
+		border: none;
+		padding: 15px 30px;
+		font-size: 1.2rem;
+		font-weight: bold;
+		color: #fff;
+		cursor: pointer;
+		border-radius: 5px;
+		transition: background-color 0.3s ease;
+		margin: 0 10px;
+	}
+
+	button:hover {
+		background-color: #ff9933;
+	}
+</style>
