@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import { currentQuestionIndex, userAnswers, issueRankings } from '../../store.js'; // Import user's answers from the store
+	import { currentQuestionIndex, userAnswers, issueRankings, userInfo } from '../../store.js'; // Import user's answers from the store
 	import questions from '$lib/data/questions.json'; // Import questions
 	import Chart from 'chart.js/auto'; // Import Chart.js
 	import { goto } from '$app/navigation'; // Import the `goto` function for navigation
@@ -18,6 +18,7 @@
 		currentQuestionIndex.set(0);
 		userAnswers.set([]); // Clear user answers
 		issueRankings.set([]); // Clear issue rankings
+		userInfo.set({ age: '', gender: '', region: '', urbanization: '' });
 		goto('/'); // Navigate back to the landing page (adjust if needed)
 	}
 
@@ -138,7 +139,7 @@
 
 	<div class="button-container">
 		<button on:click={backToRankings}>Back</button>
-		<button on:click={revealQuestions}>Reveal Questions</button>
+		<button on:click={revealQuestions}>Compare your answers</button>
 		<button on:click={startAgain}>Start Again</button>
 	</div>
 </main>

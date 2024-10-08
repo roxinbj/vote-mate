@@ -8,3 +8,5 @@ export const userAnswers = writable([]);
 
 // Store for the issue rankings (set by the user during drag-and-drop)
 export const issueRankings = writable([]);
+
+export const userInfo = writable({ age: '', gender: '', region: '', urbanization: '' });

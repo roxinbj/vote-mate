@@ -1,5 +1,5 @@
 <script>
-	import { issueRankings } from '../../store'; // Import the store for rankings
+	import { issueRankings, userInfo } from '../../store'; // Import the store for rankings and user info
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import Sortable from 'sortablejs'; // Import Sortable.js
@@ -25,19 +25,43 @@
 		});
 	});
 
-	// Submit the rankings and navigate to the results page
+	// Check if userInfo is filled
+	function isUserInfoFilled() {
+		console.log('UserInfo ', $userInfo);
+		return (
+			$userInfo.gender !== '' ||
+			$userInfo.region !== '' ||
+			$userInfo.age !== '' ||
+			$userInfo.urbanization !== ''
+		);
+	}
+
+	// Submit the rankings and navigate to the appropriate page
 	function submitRankings() {
 		issueRankings.set(rankedIssues); // Store the final ranking
 		console.log('ranking:', rankedIssues);
-		goto('/results'); // Navigate to the results page
+
+		// Navigate to userInfo or results depending on if userInfo is filled
+		if (isUserInfoFilled()) {
+			goto('/results');
+		} else {
+			goto('/userInfo');
+		}
 	}
 
+	// Skip the rankings and navigate to the appropriate page
 	function skipRankings() {
-		//equalRank = [...Array(questions.length)].map((x) => 1);
-		issueRankings.set([]);
-		console.log('ranking:', []);
-		goto('/results'); // Navigate to the results page
+		issueRankings.set([]); // Clear the ranking
+		console.log('ranking skipped');
+
+		// Navigate to userInfo or results depending on if userInfo is filled
+		if (isUserInfoFilled()) {
+			goto('/results');
+		} else {
+			goto('/userInfo');
+		}
 	}
+
 	function backToQuestions() {
 		goto('/questions');
 	}

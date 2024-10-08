@@ -172,7 +172,7 @@
 	.logo-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-		gap: 20px;
+		gap: 30px;
 		justify-items: center;
 		padding: 20px 0;
 	}
