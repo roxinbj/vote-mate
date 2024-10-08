@@ -34,6 +34,30 @@
 		goto('/ranking');
 	}
 
+	// Create the list of user answers with the question ID and text answer
+	function mapUserAnswers() {
+		return questions.map((question, index) => ({
+			question_id: question.question_id,
+			answer: $userAnswers[index] !== null ? question.options[$userAnswers[index]].answer : null
+		}));
+	}
+
+	// Create the result list of party correlations
+	function mapCorrelationResults() {
+		return sortedParties.map((party) => ({
+			party_name: party.party,
+			correlation: party.percentage
+		}));
+	}
+
+	// Prepare the issue rankings in the correct format for BigQuery
+	function mapIssueRankings() {
+		return $issueRankings.map((issue, index) => ({
+			issue,
+			ranking: index
+		}));
+	}
+
 	function calculateWeights() {
 		const rankings = $issueRankings;
 
@@ -84,20 +108,22 @@
 		sortedParties = [...correlationResults].sort((a, b) => b.percentage - a.percentage);
 	}
 
+	// Send results to BigQuery with correct structure
 	async function sendResultsToBigQuery() {
 		console.log('Send to BG');
 		const result = {
 			response_id, // Generated UUID
 			version_id, // App version
 			submission_time: new Date().toISOString(),
-			user_answers: $userAnswers,
-			issue_rankings: $issueRankings.length ? $issueRankings : null, // Null if skipped
-			user_info: $userInfo
+			user_answers: mapUserAnswers(), // Map user answers with question ID and actual answer
+			issue_rankings: $issueRankings.length ? mapIssueRankings() : null, // Map rankings, or null if skipped
+			user_info: $userInfo, // User demographic information
+			result: mapCorrelationResults() // Party correlation results
 		};
+		console.log('Result object ', result);
 
 		try {
-			// Send data to the backend
-			const response = await fetch('/api/sendResultsToBigQuery', {
+			const response = await fetch('/results', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
@@ -106,12 +132,18 @@
 			});
 
 			if (!response.ok) {
-				throw new Error('Failed to send results to the backend');
+				const errorData = await response.json();
+				console.error('Server error:', errorData);
+				alert('Failed to send data to the server.');
+				return;
 			}
 
-			console.log('Results successfully sent to the backend.');
-		} catch (error) {
-			console.error('Error sending results to backend:', error);
+			const data = await response.json();
+			console.log('Server response:', data);
+			alert('Data sent successfully!');
+		} catch (err) {
+			console.error('Fetch error:', err);
+			alert('An error occurred while sending data.');
 		}
 	}
 
@@ -166,84 +198,6 @@
 		});
 
 		// Push results to BigQuery after chart calculation
-		sendResultsToBigQuery();
+		//sendResultsToBigQuery();
 	});
 </script>
-
-<main>
-	<h1>Your Results</h1>
-
-	<div class="chart-container">
-		<canvas id="resultsChart" width="400" height="400"></canvas>
-	</div>
-
-	<div class="button-container">
-		<button on:click={backToRankings}>Back</button>
-		<button on:click={revealQuestions}>Compare your answers</button>
-		<button on:click={startAgain}>Start Again</button>
-	</div>
-</main>
-
-<style>
-	/* Existing styles */
-	main {
-		padding: 20px;
-		text-align: center;
-		font-family: Arial, sans-serif;
-	}
-
-	h1 {
-		color: #ff9933;
-		font-size: 2.5rem;
-		margin-bottom: 20px;
-	}
-
-	.chart-container {
-		max-width: 600px;
-		margin: 0 auto;
-		padding: 20px;
-		background-color: white;
-		border-radius: 10px;
-		box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-	}
-
-	canvas {
-		max-width: 100%;
-		margin: 20px auto;
-	}
-
-	.button-container {
-		margin-top: 20px;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		gap: 20px;
-	}
-
-	button {
-		background-color: #ffcc33;
-		border: none;
-		padding: 15px 30px;
-		font-size: 1.2rem;
-		font-weight: bold;
-		color: #fff;
-		cursor: pointer;
-		border-radius: 5px;
-		transition: background-color 0.3s ease;
-	}
-
-	button:hover {
-		background-color: #ff9933;
-	}
-
-	@media (max-width: 768px) {
-		.button-container {
-			flex-direction: column;
-			gap: 15px;
-		}
-
-		button {
-			width: 100%;
-		}
-	}
-</style>
