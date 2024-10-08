@@ -2,66 +2,42 @@
 	import { issueRankings } from '../../store'; // Import the store for rankings
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
+	import Sortable from 'sortablejs'; // Import Sortable.js
 	import questions from '$lib/data/questions.json'; // Import the questions
 
 	let issues = [];
 	let rankedIssues = [];
-	let draggedIndex = null; // Track the index of the dragged item
 
-	// On mount, initialize the issues array with unique issues from the questions
 	onMount(() => {
 		issues = [...new Set(questions.map((q) => q.issue))]; // Extract unique issues from questions
 		rankedIssues = [...issues]; // Start with the original order of issues
+
+		// Initialize Sortable.js on the list of issues
+		const ulElement = document.querySelector('.sortable-list');
+		new Sortable(ulElement, {
+			animation: 150, // Smooth dragging animation
+			ghostClass: 'ghost', // Class added to the item being dragged (for styling)
+			onEnd: (evt) => {
+				// Rearrange the rankedIssues array based on the new order
+				const [movedItem] = rankedIssues.splice(evt.oldIndex, 1);
+				rankedIssues.splice(evt.newIndex, 0, movedItem);
+			}
+		});
 	});
-
-	// Handle when dragging starts
-	function handleDragStart(event, index) {
-		draggedIndex = index; // Set the dragged item index
-		event.target.style.opacity = 0.5; // Set some styling for visual feedback
-	}
-
-	// Handle when dragging over another item
-	function handleDragOver(event) {
-		event.preventDefault(); // Allow dropping
-		event.target.style.backgroundColor = '#f0f0f0'; // Highlight potential drop target
-	}
-
-	// Handle drag leave to reset the background when not hovering over an item
-	function handleDragLeave(event) {
-		event.target.style.backgroundColor = ''; // Reset background color
-	}
-
-	// Handle when an item is dropped
-	function handleDrop(event, index) {
-		event.preventDefault();
-
-		// Reorder the rankedIssues array
-		const draggedIssue = rankedIssues[draggedIndex];
-
-		// Ensure the dragged item is inserted into the correct position
-		rankedIssues.splice(draggedIndex, 1); // Remove the dragged issue from its old position
-		rankedIssues.splice(index, 0, draggedIssue); // Insert it at the new index
-
-		// Trigger reactivity by reassigning the array to itself
-		rankedIssues = [...rankedIssues]; // This triggers the reactivity in Svelte
-
-		// Reset styling and index
-		event.target.style.opacity = 1;
-		event.target.style.backgroundColor = ''; // Reset background color
-		draggedIndex = null;
-	}
-
-	// Handle drag end to reset styling
-	function handleDragEnd(event) {
-		event.target.style.opacity = 1; // Reset styling
-	}
 
 	// Submit the rankings and navigate to the results page
 	function submitRankings() {
 		issueRankings.set(rankedIssues); // Store the final ranking
+		console.log('ranking:', rankedIssues);
 		goto('/results'); // Navigate to the results page
 	}
 
+	function skipRankings() {
+		//equalRank = [...Array(questions.length)].map((x) => 1);
+		issueRankings.set([]);
+		console.log('ranking:', []);
+		goto('/results'); // Navigate to the results page
+	}
 	function backToQuestions() {
 		goto('/questions');
 	}
@@ -72,22 +48,15 @@
 	<p>Drag and drop the issues to rank them by importance to you.</p>
 
 	<div class="rank-container">
-		<ul>
-			{#each rankedIssues as issue, index}
-				<li
-					draggable="true"
-					on:dragstart={(event) => handleDragStart(event, index)}
-					on:dragover={handleDragOver}
-					on:dragleave={handleDragLeave}
-					on:drop={(event) => handleDrop(event, index)}
-					on:dragend={handleDragEnd}
-				>
-					{issue}
-				</li>
+		<ul class="sortable-list">
+			{#each rankedIssues as issue}
+				<li>{issue}</li>
 			{/each}
 		</ul>
 	</div>
+
 	<button class="submit-button" on:click={backToQuestions}>Back</button>
+	<button class="submit-button" on:click={skipRankings}>Skip Rankings</button>
 	<button class="submit-button" on:click={submitRankings}>Submit Rankings</button>
 </main>
 
@@ -149,6 +118,11 @@
 	li:active {
 		background-color: #ff9933;
 		color: #fff;
+	}
+
+	/* Add ghost class for the dragging element */
+	.ghost {
+		opacity: 0.5;
 	}
 
 	.submit-button {

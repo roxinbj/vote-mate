@@ -9,9 +9,6 @@
 <main>
 	<!-- Top Section -->
 	<section class="hero-section">
-		<nav class="nav">
-			<div class="hamburger-menu"></div>
-		</nav>
 		<div class="hero-content">
 			<h1>Vote-Mate</h1>
 			<h2>Namibian Parliamentary Elections 2024</h2>
@@ -29,22 +26,57 @@
 	<!-- Bottom Section (Logos) -->
 	<section class="logo-section">
 		<h3>This project was proudly sponsored by:</h3>
-		<div class="logo-grid">
-			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
-			<img src="/logos/EtoshaApp.png" alt="Etosha App 1" />
-			<img src="/logos/HitradioNamibia.jpg" alt="HitradioNamibia 1" />
-			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
-			<img src="/logos/Sigmotec.png" alt="Sigmotec 1" />
+		<div class="logo-grid large-logo-grid">
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.etosha-app.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/EtoshaApp.png" alt="Etosha App 1" />
+			</a>
+			<a href="https://www.hitradio.com.na" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/HitradioNamibia.jpg" alt="HitradioNamibia 1" />
+			</a>
+		</div>
 
-			<!-- Add more logos as necessary -->
-		</div>
 		<h3>Other supporters:</h3>
-		<div class="logo-grid">
-			<img src="/logos/Sigmotec.png" alt="Supporter 1" />
-			<img src="/logos/Sigmotec.png" alt="Supporter 1" />
-			<img src="/logos/Sigmotec.png" alt="Supporter 1" />
-			<img src="/logos/Sigmotec.png" alt="Supporter 1" />
+		<div class="logo-grid small-logo-grid">
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
+			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
+				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
+			</a>
 		</div>
+
+		<!--<h4>Project Team</h4>
+		<p>
+			This project was developed as a private initative of Björn Roxin (Etosha App and Sigmotec)
+			together with Jasko Rusk from Hitradio Namibia.
+		</p>
+        -->
+
+		<!-- Disclaimer Section -->
+		<p class="disclaimer">
+			<strong>Disclaimer:</strong> While every effort has been made to ensure the accuracy and completeness
+			of the information, we do not guarantee the correctness or completeness of the content provided.
+			The information contained in this survey is based on publicly available data and party manifestos
+			and should be used for informational purposes only.
+		</p>
 	</section>
 </main>
 
@@ -61,9 +93,9 @@
 		line-height: 1.6;
 		color: #333;
 	}
+
 	h2 {
 		color: #333;
-
 		font-size: 2.5rem;
 		margin-bottom: 10px;
 	}
@@ -145,10 +177,24 @@
 		padding: 20px 0;
 	}
 
-	.logo-grid img {
-		max-width: 100%;
+	.large-logo-grid img {
+		width: 300px;
 		height: auto;
-		object-fit: contain;
+	}
+
+	.small-logo-grid img {
+		width: 150px;
+		height: auto;
+	}
+
+	/* Disclaimer Style */
+	.disclaimer {
+		font-size: 0.85rem;
+		color: #555;
+		margin-top: 40px;
+		padding: 20px;
+		background-color: #f9f9f9;
+		border-top: 1px solid #ddd;
 	}
 
 	/* Responsive Design */
@@ -168,6 +214,14 @@
 
 		.logo-grid {
 			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+		}
+
+		.large-logo-grid img {
+			width: 200px;
+		}
+
+		.small-logo-grid img {
+			width: 100px;
 		}
 	}
 </style>

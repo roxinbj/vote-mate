@@ -54,13 +54,14 @@
 
 <style>
 	main {
+		background: linear-gradient(135deg, #ffcc33, #ff9933);
 		padding: 20px;
 		text-align: center;
 		font-family: Arial, sans-serif;
 	}
 
 	h1 {
-		color: #ff9933;
+		color: white;
 		font-size: 2.5rem;
 		margin-bottom: 20px;
 	}

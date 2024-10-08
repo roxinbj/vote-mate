@@ -21,6 +21,10 @@
 		goto('/'); // Navigate back to the landing page (adjust if needed)
 	}
 
+	function backToRankings() {
+		goto('/ranking');
+	}
+
 	function calculateWeights() {
 		const rankings = $issueRankings;
 
@@ -133,6 +137,7 @@
 	</div>
 
 	<div class="button-container">
+		<button on:click={backToRankings}>Back</button>
 		<button on:click={revealQuestions}>Reveal Questions</button>
 		<button on:click={startAgain}>Start Again</button>
 	</div>
