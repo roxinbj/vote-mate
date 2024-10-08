@@ -26,6 +26,12 @@ COPY package*.json ./
 # Install production dependencies only
 RUN npm install --production
 
+# Install Express and @google-cloud/bigquery for API handling
+RUN npm install express @google-cloud/bigquery
+
+# Copy the custom server file (Express-based)
+COPY ./index.js ./
+
 # Copy only necessary files from the build stage
 COPY --from=build /app/build ./build
 # Expose the port for Cloud Run (or local testing)

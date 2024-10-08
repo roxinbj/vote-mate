@@ -32,6 +32,7 @@
 	// Function to handle form submission and save to store
 	function submitUserInfo() {
 		// Save the user info in the store
+		console.log('gender', gender);
 		userInfo.set({
 			gender,
 			region,

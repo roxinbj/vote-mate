@@ -1,17 +1,25 @@
 <script>
 	import { onMount } from 'svelte';
-	import { currentQuestionIndex, userAnswers, issueRankings, userInfo } from '../../store.js'; // Import user's answers from the store
+	import {
+		currentQuestionIndex,
+		userAnswers,
+		issueRankings,
+		userInfo,
+		version_id
+	} from '../../store.js'; // Import version and store data
 	import questions from '$lib/data/questions.json'; // Import questions
+	import { v4 as uuidv4 } from 'uuid'; // Import UUID generator
 	import Chart from 'chart.js/auto'; // Import Chart.js
 	import { goto } from '$app/navigation'; // Import the `goto` function for navigation
 
 	let correlationResults = [];
 	let sortedParties = [];
+	let response_id = ''; // Initialize response_id
 
 	const parties = ['PDM', 'NEFF', 'IPC', 'RP', 'APP', 'SWAPO', 'CoD', 'SWANU', 'NDP'];
 
 	function revealQuestions() {
-		goto('/questions-revealed'); // Replace with the correct path to the page where the questions are revealed
+		goto('/questions-revealed');
 	}
 
 	function startAgain() {
@@ -19,7 +27,7 @@
 		userAnswers.set([]); // Clear user answers
 		issueRankings.set([]); // Clear issue rankings
 		userInfo.set({ age: '', gender: '', region: '', urbanization: '' });
-		goto('/'); // Navigate back to the landing page (adjust if needed)
+		goto('/');
 	}
 
 	function backToRankings() {
@@ -53,8 +61,6 @@
 		});
 
 		const weights = calculateWeights();
-		console.log('weights: ', weights);
-
 		questions.forEach((question, questionIndex) => {
 			const userAnswer = $userAnswers[questionIndex];
 			const weight = weights[questionIndex] || 1;
@@ -71,22 +77,53 @@
 		});
 
 		const maxScore = weights.reduce((sum, w) => sum + w, 0);
-		console.log('Max Score:', maxScore);
 		correlationResults = parties.map((party) => ({
 			party,
 			percentage: Math.round((partyScores[party] / maxScore) * 100)
 		}));
-		console.log('Score: ', partyScores);
-
 		sortedParties = [...correlationResults].sort((a, b) => b.percentage - a.percentage);
+	}
+
+	async function sendResultsToBigQuery() {
+		console.log('Send to BG');
+		const result = {
+			response_id, // Generated UUID
+			version_id, // App version
+			submission_time: new Date().toISOString(),
+			user_answers: $userAnswers,
+			issue_rankings: $issueRankings.length ? $issueRankings : null, // Null if skipped
+			user_info: $userInfo
+		};
+
+		try {
+			// Send data to the backend
+			const response = await fetch('/api/sendResultsToBigQuery', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(result)
+			});
+
+			if (!response.ok) {
+				throw new Error('Failed to send results to the backend');
+			}
+
+			console.log('Results successfully sent to the backend.');
+		} catch (error) {
+			console.error('Error sending results to backend:', error);
+		}
 	}
 
 	let chart;
 	onMount(() => {
+		// Generate a unique response_id
+		response_id = uuidv4();
+
+		// Calculate correlations and render the chart
 		calculateCorrelation();
 
 		const ctx = document.getElementById('resultsChart').getContext('2d');
-
 		chart = new Chart(ctx, {
 			type: 'bar',
 			data: {
@@ -127,6 +164,9 @@
 				}
 			}
 		});
+
+		// Push results to BigQuery after chart calculation
+		sendResultsToBigQuery();
 	});
 </script>
 
@@ -145,6 +185,7 @@
 </main>
 
 <style>
+	/* Existing styles */
 	main {
 		padding: 20px;
 		text-align: center;
@@ -174,9 +215,9 @@
 	.button-container {
 		margin-top: 20px;
 		display: flex;
-		justify-content: center; /* Center buttons horizontally */
-		flex-wrap: wrap; /* Allow buttons to wrap into multiple lines if necessary */
-		gap: 20px; /* Add gap between buttons */
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 20px;
 	}
 
 	button {
@@ -195,15 +236,14 @@
 		background-color: #ff9933;
 	}
 
-	/* Media Query for Small Screens */
 	@media (max-width: 768px) {
 		.button-container {
-			flex-direction: column; /* Stack buttons vertically on small screens */
-			gap: 15px; /* Add gap between buttons in stacked layout */
+			flex-direction: column;
+			gap: 15px;
 		}
 
 		button {
-			width: 100%; /* Make buttons full width on smaller screens */
+			width: 100%;
 		}
 	}
 </style>

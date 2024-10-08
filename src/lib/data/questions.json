@@ -1,5 +1,6 @@
 [
 	{
+		"question_id": 1,
 		"question": "We should address unemployment in Namibia by...",
 		"options": [
 			{
@@ -26,6 +27,7 @@
 		"issue": "Economic Development & Jobs"
 	},
 	{
+		"question_id": 2,
 		"question": "We should address the housing crisis by...",
 		"options": [
 			{
@@ -52,6 +54,7 @@
 		"issue": "Housing"
 	},
 	{
+		"question_id": 3,
 		"question": "To improve healthcare in Namibia, we should...",
 		"options": [
 			{
@@ -78,6 +81,7 @@
 		"issue": "Healthcare"
 	},
 	{
+		"question_id": 4,
 		"question": "To manage natural resources in Namibia, we should...",
 		"options": [
 			{
@@ -104,6 +108,7 @@
 		"issue": "Natural Resources"
 	},
 	{
+		"question_id": 5,
 		"question": "To reduce corruption in Namibia, we should...",
 		"options": [
 			{
@@ -130,6 +135,7 @@
 		"issue": "Corruption"
 	},
 	{
+		"question_id": 6,
 		"question": "We should fight poverty by...",
 		"options": [
 			{
@@ -156,6 +162,7 @@
 		"issue": "Poverty"
 	},
 	{
+		"question_id": 7,
 		"question": "To ensure food security, we should...",
 		"options": [
 			{
@@ -182,6 +189,7 @@
 		"issue": "Food Security"
 	},
 	{
+		"question_id": 8,
 		"question": "To reform education, we should...",
 		"options": [
 			{
@@ -208,6 +216,7 @@
 		"issue": "Education"
 	},
 	{
+		"question_id": 9,
 		"question": "To improve policing and justice, we should...",
 		"options": [
 			{
@@ -234,6 +243,7 @@
 		"issue": "Policing & Justice"
 	},
 	{
+		"question_id": 10,
 		"question": "To manage land reform, we should...",
 		"options": [
 			{

@@ -53,7 +53,6 @@
 
 	// Check if userInfo is filled
 	function isUserInfoFilled() {
-		console.log('UserInfo ', $userInfo);
 		return (
 			$userInfo.gender !== '' ||
 			$userInfo.region !== '' ||

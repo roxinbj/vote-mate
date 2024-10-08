@@ -1,12 +1,26 @@
+// store.js
 import { writable } from 'svelte/store';
+import { v4 as uuidv4 } from 'uuid';
 
-// Store for tracking the current question index
-export const currentQuestionIndex = writable(0);
+// Define version of the app/survey
+export const version_id = 'v1.0.3'; // Update this as needed
 
-// Store for tracking user answers (each element is the index of the selected option or null for skipped questions)
+// Generate a unique response ID for each survey session
+export const response_id = writable(uuidv4());
+
+// Store for user's answers
 export const userAnswers = writable([]);
 
-// Store for the issue rankings (set by the user during drag-and-drop)
+// Store for rankings
 export const issueRankings = writable([]);
 
-export const userInfo = writable({ age: '', gender: '', region: '', urbanization: '' });
+// Store for demographic info
+export const userInfo = writable({
+	gender: '',
+	region: '',
+	age: '',
+	urbanization: ''
+});
+
+// Store for tracking current question index
+export const currentQuestionIndex = writable(0);
