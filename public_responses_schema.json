@@ -1,0 +1,109 @@
+[
+	{
+		"description": "A unique identifier for each response, generated using a UUID.",
+		"mode": "REQUIRED",
+		"name": "response_id",
+		"type": "STRING"
+	},
+	{
+		"description": "\tThe timestamp when the response was submitted.",
+		"mode": "REQUIRED",
+		"name": "submission_time",
+		"type": "TIMESTAMP"
+	},
+	{
+		"description": "A string representing the app or survey version at the time of submission.",
+		"mode": "REQUIRED",
+		"name": "version_id",
+		"type": "STRING"
+	},
+	{
+		"description": "A nested record containing the user's answers to each question.",
+		"fields": [
+			{
+				"description": "The ID of the question being answered.",
+				"mode": "REQUIRED",
+				"name": "question_id",
+				"type": "INTEGER"
+			},
+			{
+				"description": "The user's answer to the question, or null if the question was skipped.",
+				"mode": "NULLABLE",
+				"name": "answer",
+				"type": "STRING"
+			}
+		],
+		"mode": "REPEATED",
+		"name": "user_answers",
+		"type": "RECORD"
+	},
+	{
+		"description": "A repeated list of issues ranked by the user, or null if skipped.",
+		"mode": "REPEATED",
+		"name": "issue_rankings",
+		"type": "RECORD",
+		"fields": [
+			{
+				"description": "The issue of the question being answered.",
+				"mode": "REQUIRED",
+				"name": "issue",
+				"type": "STRING"
+			},
+			{
+				"description": "The user's ranking to the issue. 0 top and 9 been bottom",
+				"mode": "REQUIRED",
+				"name": "ranking",
+				"type": "INTEGER"
+			}
+		]
+	},
+	{
+		"description": "A nested record for optional demographic information.",
+		"fields": [
+			{
+				"description": "The gender provided by the user (male, female, other, disclose, or skipped).",
+				"mode": "NULLABLE",
+				"name": "gender",
+				"type": "STRING"
+			},
+			{
+				"description": "The age group selected by the user (e.g., 18-30, 31-40, etc.).",
+				"mode": "NULLABLE",
+				"name": "age_group",
+				"type": "STRING"
+			},
+			{
+				"description": "The region selected by the user (from the list of regions in Namibia).",
+				"mode": "NULLABLE",
+				"name": "region",
+				"type": "STRING"
+			},
+			{
+				"description": "The type of urbanization selected (e.g., city, rural, or skipped).",
+				"mode": "NULLABLE",
+				"name": "urbanization",
+				"type": "STRING"
+			}
+		],
+		"mode": "NULLABLE",
+		"name": "user_info",
+		"type": "RECORD"
+	},
+	{
+		"fields": [
+			{
+				"mode": "NULLABLE",
+				"name": "party_name",
+				"type": "STRING"
+			},
+			{
+				"mode": "NULLABLE",
+				"name": "correlation",
+				"type": "INTEGER"
+			}
+		],
+		"mode": "REPEATED",
+		"name": "result",
+		"type": "RECORD"
+	}
+]

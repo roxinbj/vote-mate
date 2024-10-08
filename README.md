@@ -36,3 +36,17 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+
+gcloud run deploy vote-mate \
+ --image gcr.io/vote-mate/gcr.io/vote-mate/sveltekit-app:latest \
+ --platform managed \
+ --region europe-west1 \
+ --set-env-vars PORT=3000 \
+ --allow-unauthenticated
+
+1. To download current schema:
+   - `bq show --schema --format=prettyjson vote_mate_responses.public_responses > public_responses_schema.json`
+2. To upload updated schema:
+   - `bq update vote_mate_responses.public_responses public_responses_schema.json`
+3. Delete single Column through Query
+   - `ALTER TABLE mydataset.mytable DROP COLUMN IF EXISTS myColumn`
