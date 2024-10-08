@@ -8,9 +8,35 @@
 	let issues = [];
 	let rankedIssues = [];
 
+	// Fisher-Yates Shuffle Algorithm to randomize the array
+	function shuffleArray(array) {
+		for (let i = array.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1));
+			[array[i], array[j]] = [array[j], array[i]]; // Swap elements
+		}
+		return array;
+	}
+
+	// Check if rankedIssues is in the original order (same as issues)
+	function isOriginalOrder(arr1, arr2) {
+		return arr1.every((val, index) => val === arr2[index]);
+	}
+
 	onMount(() => {
-		issues = [...new Set(questions.map((q) => q.issue))]; // Extract unique issues from questions
-		rankedIssues = [...issues]; // Start with the original order of issues
+		// Extract unique issues from questions
+		issues = [...new Set(questions.map((q) => q.issue))];
+
+		// Check if issueRankings store already has data or if rankedIssues is in its original order
+		if ($issueRankings.length === 0) {
+			rankedIssues = [...issues]; // Initialize rankedIssues as the original order of issues
+
+			// Shuffle only if the order hasn't been changed by the user
+			if (isOriginalOrder(rankedIssues, issues)) {
+				rankedIssues = shuffleArray([...rankedIssues]); // Shuffle if in original order
+			}
+		} else {
+			rankedIssues = [...$issueRankings]; // Use the stored ranking if it exists
+		}
 
 		// Initialize Sortable.js on the list of issues
 		const ulElement = document.querySelector('.sortable-list');
