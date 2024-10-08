@@ -81,7 +81,7 @@
 </main>
 
 <style>
-	/* General Resets */
+	/* General Resets */ /* General Resets */
 	* {
 		margin: 0;
 		padding: 0;
@@ -172,7 +172,7 @@
 	.logo-grid {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-		gap: 30px;
+		gap: 20px; /* Add gap for default screen sizes */
 		justify-items: center;
 		padding: 20px 0;
 	}
@@ -212,16 +212,26 @@
 			padding: 10px 20px;
 		}
 
+		/* Make large logos take full width */
+		.large-logo-grid {
+			grid-template-columns: 1fr; /* One logo per row */
+		}
+
+		/* Make small logos appear two per row */
+		.small-logo-grid {
+			grid-template-columns: repeat(2, 1fr); /* Two logos per row */
+		}
+
 		.logo-grid {
-			grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+			gap: 30px; /* Increase gap between logos in responsive mode */
 		}
 
 		.large-logo-grid img {
-			width: 200px;
+			width: 200px; /* Adjust size for responsive view */
 		}
 
 		.small-logo-grid img {
-			width: 100px;
+			width: 100px; /* Adjust size for responsive view */
 		}
 	}
 </style>

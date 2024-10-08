@@ -159,9 +159,19 @@
 		cursor: pointer;
 		border-radius: 5px;
 		transition: background-color 0.3s ease;
+		margin-bottom: 10px; /* Add margin for vertical spacing */
 	}
 
 	.submit-button:hover {
 		background-color: #ff9933;
+	}
+
+	/* Media query for small screens */
+	@media (max-width: 768px) {
+		.submit-button {
+			display: block;
+			width: 100%;
+			margin-bottom: 15px; /* Increased margin for stacked buttons */
+		}
 	}
 </style>

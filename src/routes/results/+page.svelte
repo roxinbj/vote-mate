@@ -173,6 +173,10 @@
 
 	.button-container {
 		margin-top: 20px;
+		display: flex;
+		justify-content: center; /* Center buttons horizontally */
+		flex-wrap: wrap; /* Allow buttons to wrap into multiple lines if necessary */
+		gap: 20px; /* Add gap between buttons */
 	}
 
 	button {
@@ -185,10 +189,21 @@
 		cursor: pointer;
 		border-radius: 5px;
 		transition: background-color 0.3s ease;
-		margin: 0 10px;
 	}
 
 	button:hover {
 		background-color: #ff9933;
+	}
+
+	/* Media Query for Small Screens */
+	@media (max-width: 768px) {
+		.button-container {
+			flex-direction: column; /* Stack buttons vertically on small screens */
+			gap: 15px; /* Add gap between buttons in stacked layout */
+		}
+
+		button {
+			width: 100%; /* Make buttons full width on smaller screens */
+		}
 	}
 </style>

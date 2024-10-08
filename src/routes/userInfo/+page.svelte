@@ -146,6 +146,7 @@
 		display: flex;
 		justify-content: space-between;
 		margin-top: 20px;
+		gap: 20px;
 	}
 
 	.submit-button,
@@ -164,5 +165,9 @@
 	.submit-button:hover,
 	.skip-button:hover {
 		background-color: #ff9933;
+	}
+	.submit-button,
+	.skip-button {
+		flex: 1;
 	}
 </style>
