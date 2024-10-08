@@ -13,6 +13,10 @@ RUN npm install
 # Copy the entire project
 COPY . .
 
+
+# ARG API_TOKEN="TEST"
+# ENV API_TOKEN=$API_TOKEN
+
 # Build the SvelteKit app (this will generate a production-ready build)
 RUN npm run build
 

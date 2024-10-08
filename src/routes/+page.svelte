@@ -1,6 +1,5 @@
 <script>
 	import { goto } from '$app/navigation';
-
 	function startSurvey() {
 		goto('/questions');
 	}
@@ -33,42 +32,20 @@
 			<a href="https://www.etosha-app.com" target="_blank" rel="noopener noreferrer">
 				<img src="/logos/EtoshaApp.png" alt="Etosha App 1" />
 			</a>
+		</div>
+
+		<h3>Media partners:</h3>
+		<div class="logo-grid small-logo-grid">
 			<a href="https://www.hitradio.com.na" target="_blank" rel="noopener noreferrer">
 				<img src="/logos/HitradioNamibia.jpg" alt="HitradioNamibia 1" />
 			</a>
 		</div>
 
-		<h3>Other supporters:</h3>
-		<div class="logo-grid small-logo-grid">
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-			<a href="https://www.sigmotec.com" target="_blank" rel="noopener noreferrer">
-				<img src="/logos/Sigmotec.png" alt="Sigmotec" />
-			</a>
-		</div>
-
-		<!--<h4>Project Team</h4>
+		<h4>Project Team</h4>
 		<p>
 			This project was developed as a private initative of Björn Roxin (Etosha App and Sigmotec)
 			together with Jasko Rusk from Hitradio Namibia.
 		</p>
-        -->
 
 		<!-- Disclaimer Section -->
 		<p class="disclaimer">

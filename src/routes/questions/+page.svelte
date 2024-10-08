@@ -139,9 +139,11 @@
 		border-radius: 5px;
 		transition: background-color 0.3s ease;
 	}
-
-	.options button:hover {
-		background-color: #ffcc33;
+	/* Apply hover styles only on devices that support hover (desktops, not smartphones) */
+	@media (hover: hover) {
+		.options button:hover {
+			background-color: #ffcc33;
+		}
 	}
 
 	.options button.selected {
