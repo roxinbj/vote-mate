@@ -18,7 +18,7 @@ export const issueRankings = writable([]);
 export const userInfo = writable({
 	gender: '',
 	region: '',
-	age: '',
+	age_group: '',
 	urbanization: ''
 });
 

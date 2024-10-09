@@ -5,6 +5,8 @@ import { BigQuery } from '@google-cloud/bigquery';
 const bigquery = new BigQuery();
 
 export async function POST({ request }) {
+	console.log('Entered Backend');
+
 	try {
 		console.log('entered backend');
 		const payload = await request.json();
@@ -12,7 +14,8 @@ export async function POST({ request }) {
 
 		// Replace with your actual dataset and table IDs
 		const datasetId = 'vote_mate_responses';
-		const tableId = 'public_responses';
+		const tableId = 'public_responses'; //'test'; //
+		//const rows = [{ test: 'Hallo' }];
 		const rows = [payload];
 
 		// Insert data into BigQuery

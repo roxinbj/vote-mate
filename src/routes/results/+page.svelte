@@ -64,19 +64,21 @@
 		questions.forEach((question, questionIndex) => {
 			const userAnswer = $userAnswers[questionIndex];
 			const weight = weights[questionIndex] || 1;
+			console.log('QuestionIndex  ', questionIndex);
+			console.log('question  ', question);
+			console.log('User Answer  ', userAnswer);
+			console.log('weight  ', weight);
 
 			if (userAnswer !== null) {
-				question.options.forEach((option) => {
-					if (option.parties.includes(parties[userAnswer])) {
-						option.parties.forEach((party) => {
-							partyScores[party] += weight;
-						});
-					}
+				question.options[userAnswer].parties.forEach((party) => {
+					partyScores[party] += weight;
 				});
+				console.log('partyScores  ', partyScores);
 			}
 		});
 
 		const maxScore = weights.reduce((sum, w) => sum + w, 0);
+		console.log('Party Scores ', partyScores);
 		correlationResults = parties.map((party) => ({
 			party,
 			percentage: Math.round((partyScores[party] / maxScore) * 100)
@@ -120,12 +122,11 @@
 			user_info: $userInfo, // User demographic information
 			result: mapCorrelationResults() // Party correlation results
 		};
-		console.log('Result object ', result);
-		return;
+		console.log('Result object ', JSON.stringify(result));
 
 		try {
 			// Send data to the backend
-			const response = await fetch('/api/sendResultsToBigQuery', {
+			const response = await fetch('/upload', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'

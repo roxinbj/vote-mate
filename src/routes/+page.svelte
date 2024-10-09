@@ -35,24 +35,20 @@
 		</div>
 
 		<h3>Media partners:</h3>
-		<div class="logo-grid small-logo-grid">
+		<!--<div class="logo-grid small-logo-grid">
 			<a href="https://www.hitradio.com.na" target="_blank" rel="noopener noreferrer">
 				<img src="/logos/HitradioNamibia.jpg" alt="HitradioNamibia 1" />
 			</a>
 		</div>
-
-		<h4>Project Team</h4>
-		<p>
-			This project was developed as a private initative of Björn Roxin (Etosha App and Sigmotec)
-			together with Jasko Rusk from Hitradio Namibia.
-		</p>
+        -->
 
 		<!-- Disclaimer Section -->
 		<p class="disclaimer">
 			<strong>Disclaimer:</strong> While every effort has been made to ensure the accuracy and completeness
 			of the information, we do not guarantee the correctness or completeness of the content provided.
 			The information contained in this survey is based on publicly available data and party manifestos
-			and should be used for informational purposes only.
+			and should be used for informational purposes only. This project was developed as a private initative
+			of Björn Roxin (Etosha App and Sigmotec).
 		</p>
 	</section>
 </main>
